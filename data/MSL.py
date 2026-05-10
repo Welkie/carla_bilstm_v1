@@ -24,7 +24,7 @@ class MSL(Dataset):
         self.classes = ['Normal', 'Anomaly']
         self.data = []
         self.targets = []
-        wsz, stride = 300, 1
+        wsz, stride = 400, 1
 
         with open(os.path.join(self.root, 'labeled_anomalies.csv'), 'r') as file:
             csv_reader = pandas.read_csv(file, delimiter=',')
@@ -67,6 +67,18 @@ class MSL(Dataset):
             temp = (temp - self.mean) / self.std
 
         self.data = np.asarray(temp)
+
+        # Auto-reduce window size when series is shorter than the configured wsz
+        if len(self.data) < wsz:
+            if len(self.data) >= 350:
+                wsz = 350
+            elif len(self.data) >= 300:
+                wsz = 300
+            elif len(self.data) >= 250:
+                wsz = 250
+            else:
+                wsz = 200
+
         self.data, self.targets = self.convert_to_windows(wsz, stride)
 
     def convert_to_windows(self, w_size, stride):
