@@ -27,7 +27,7 @@ class SMD(Dataset):
         self.data = []
         self.targets = []
         labels = []
-        wsz, stride = 200, 5
+        wsz, stride = 300, 5
 
         if self.train:
             self.base_folder += 'train'
@@ -64,6 +64,13 @@ class SMD(Dataset):
 
         self.targets = np.asarray(labels)
         self.data = np.asarray(temp)
+
+        if len(self.data) < wsz:
+            if len(self.data) >= 250:
+                wsz = 250
+            else:
+                wsz = 200
+                
         self.data, self.targets = self.convert_to_windows(wsz, stride)
 
     def convert_to_windows(self, w_size, stride):
