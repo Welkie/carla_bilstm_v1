@@ -27,7 +27,7 @@ class SMD(Dataset):
         self.data = []
         self.targets = []
         labels = []
-        wsz, stride = 300, 5
+        wsz, stride = 500, 5
 
         if self.train:
             self.base_folder += 'train'
@@ -66,7 +66,15 @@ class SMD(Dataset):
         self.data = np.asarray(temp)
 
         if len(self.data) < wsz:
-            if len(self.data) >= 250:
+            if len(self.data) >= 450:
+                wsz = 450
+            elif len(self.data) >= 400:
+                wsz = 400
+            elif len(self.data) >= 350:
+                wsz = 350
+            elif len(self.data) >= 300:
+                wsz = 300
+            elif len(self.data) >= 250:
                 wsz = 250
             else:
                 wsz = 200
