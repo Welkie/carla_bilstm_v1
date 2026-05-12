@@ -24,7 +24,7 @@ class MSL(Dataset):
         self.classes = ['Normal', 'Anomaly']
         self.data = []
         self.targets = []
-        wsz, stride = 450, 1
+        wsz, stride = 1500, 1
 
         with open(os.path.join(self.root, 'labeled_anomalies.csv'), 'r') as file:
             csv_reader = pandas.read_csv(file, delimiter=',')
@@ -70,7 +70,27 @@ class MSL(Dataset):
 
         # Auto-reduce window size when series is shorter than the configured wsz
         if len(self.data) < wsz:
-            if len(self.data) >= 400:
+            if len(self.data) >= 1400:
+                wsz = 1400
+            elif len(self.data) >= 1300:
+                wsz = 1300
+            elif len(self.data) >= 1200:
+                wsz = 1200
+            elif len(self.data) >= 1100:
+                wsz = 1100
+            elif len(self.data) >= 1000:
+                wsz = 1000
+            elif len(self.data) >= 900:
+                wsz = 900
+            elif len(self.data) >= 800:
+                wsz = 800
+            elif len(self.data) >= 700:
+                wsz = 700
+            elif len(self.data) >= 600:
+                wsz = 600
+            elif len(self.data) >= 500:
+                wsz = 500
+            elif len(self.data) >= 400:
                 wsz = 400
             elif len(self.data) >= 350:
                 wsz = 350
