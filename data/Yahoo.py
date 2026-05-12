@@ -42,10 +42,14 @@ class Yahoo(Dataset):
 
         self.data = np.asarray(data)
         self.targets = np.asarray(label)
-        wsz, stride = 450, 1
+        wsz, stride = 550, 1
 
         if len(self.data) < wsz:
-            if len(self.data) >= 400:
+            if len(self.data) >= 500:
+                wsz = 500
+            elif len(self.data) >= 450:
+                wsz = 450
+            elif len(self.data) >= 400:
                 wsz = 400
             elif len(self.data) >= 350:
                 wsz = 350
